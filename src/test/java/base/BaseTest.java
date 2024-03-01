@@ -12,6 +12,7 @@ import pages.HomePage;
 public class BaseTest {
 
     private static WebDriver driver;
+
     protected HomePage homePageEbay;
 
     public static WebDriver getDriver() {

@@ -1,61 +1,69 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
 public class HomePage {
     private WebDriver driver;
-    private By loginButton = By.xpath("//a[@_sp='m570.l1524']");
-    private By searchBox = By.className("gh-tb");
-    private By searchButton = By.id("gh-btn");
-    private By searchedElements = By.cssSelector("div#srp-river-results li");
-    private By technologyLink = By.xpath("//li[@class='hl-cat-nav__js-tab']//a[contains(text(), 'Tecnología')]");
-    private By modeLink = By.xpath("(//a[contains(text(),'Moda')])[2]");
-    private By accessoriesForMen = By.xpath("//a[contains(text(),'Accesorios para hombre')]");
-    private By dropdownCategories = By.id("gh-cat");
-
-    private By sportsCategory = By.linkText("Deportes");
+    @FindBy(xpath = "//a[@_sp='m570.l1524']")
+    WebElement loginButton;
+    @FindBy(className = "gh-tb")
+    WebElement searchBox;
+    @FindBy(id = "gh-btn")
+    WebElement searchButton;
+    @FindBy(css = "div#srp-river-results li")
+    List<WebElement> searchedElements;
+    @FindBy(id = "gh-cat")
+    WebElement dropdownCategories;
+    @FindBy(linkText = "Deportes")
+    WebElement sportsCategory;
+    @FindBy(xpath = "(//a[contains(text(), 'Moda')])[2]")
+    WebElement modeCategory;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public LoginPage clickLoginButton(){
-        driver.findElement(loginButton).click();
+        loginButton.click();
         return new LoginPage(driver);
     }
     public void clickSearchBox(String elementToSearch){
-        driver.findElement(searchBox).sendKeys(elementToSearch);
+        searchBox.sendKeys(elementToSearch);
     }
 
     public void clickSearchButton(){
-        driver.findElement(searchButton).click();
+        searchButton.click();
     }
 
     public void getNumberOfSearchedElements(){
-        List<WebElement> elements = driver.findElements(searchedElements);
-        System.out.println(elements.size());
+        System.out.println(searchedElements.size());
     }
 
     public void hoverSportsLink(){
         Actions actions = new Actions(driver);
-        WebElement sports = driver.findElement(sportsCategory);
-        actions.moveToElement(sports).perform();
+        actions.moveToElement(sportsCategory).perform();
     }
     public void clickSportsLink(){
-        driver.findElement(sportsCategory).click();
+        sportsCategory.click();
+    }
+
+    public void hoverModeLink(){
+        Actions actions = new Actions(driver);
+        actions.moveToElement(modeCategory).perform();
     }
 
     public void clickCategoriesDropdown() throws InterruptedException {
-        driver.findElement(dropdownCategories).click();
+        dropdownCategories.click();
         Thread.sleep(3000);
-        WebElement dropE = driver.findElement(dropdownCategories);
-        Select selectDrop = new Select(dropE);
+        Select selectDrop = new Select(dropdownCategories);
         selectDrop.selectByIndex(2);
         Thread.sleep(3000);
     }
