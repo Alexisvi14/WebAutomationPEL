@@ -10,7 +10,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.List;
 
 public class HomepageTests extends BaseTest {
 
@@ -32,7 +31,7 @@ public class HomepageTests extends BaseTest {
         data[2][0] = "iu32whuewhut21t21y";
         return data;
     }
-    @Test
+    @Test()
     public void searchButtonTest() throws InterruptedException {
         homePageEbay.clickSearchBox("Iphone");
         homePageEbay.clickSearchButton();
@@ -42,29 +41,32 @@ public class HomepageTests extends BaseTest {
 
     @Test()
     public void submenuElements() throws InterruptedException {
-        homePageEbay.hoverModeLink();
+        homePageEbay.hoverFashionLink();
         Thread.sleep(5000);
-
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(3));
+        WebElement footwear = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Calzado")));
+        footwear.click();
     }
 
     @Test()
     public void dropdownTest() throws InterruptedException {
         homePageEbay.clickCategoriesDropdown();
+        homePageEbay.clickSearchButton();
+        Thread.sleep(3000);
     }
 
     @Test()
-    public void hoverSportsTest(){
+    public void hoverSportsTest() throws InterruptedException {
         homePageEbay.hoverSportsLink();
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Deportes acuáticos")));
-
+        WebElement link = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Vende con eBay")));
+        link.click();
+        Thread.sleep(3000);
     }
     @Test()
-    public void sportList(){
-        homePageEbay.clickSportsLink();
-        List<WebElement> sportsLinks = getDriver().findElements(By.cssSelector("[class = 'b-module b-list b-speciallinks b-display--landscape']"));
-        for (WebElement element:sportsLinks) {
-            System.out.println(element.getText());
-        }
+    public void sportList() throws InterruptedException {
+        var sportsPage = homePageEbay.clickSportsLink();
+        sportsPage.iterateCategorySection("Equipo de Boxeo y MMA");
+        Thread.sleep(3000);
     }
 }

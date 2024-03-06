@@ -24,7 +24,7 @@ public class HomePage {
     @FindBy(linkText = "Deportes")
     WebElement sportsCategory;
     @FindBy(xpath = "(//a[contains(text(), 'Moda')])[2]")
-    WebElement modeCategory;
+    WebElement fashionCategory;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -51,13 +51,14 @@ public class HomePage {
         Actions actions = new Actions(driver);
         actions.moveToElement(sportsCategory).perform();
     }
-    public void clickSportsLink(){
+    public SportsPage clickSportsLink(){
         sportsCategory.click();
+        return new SportsPage(driver);
     }
 
-    public void hoverModeLink(){
+    public void hoverFashionLink(){
         Actions actions = new Actions(driver);
-        actions.moveToElement(modeCategory).perform();
+        actions.moveToElement(fashionCategory).perform();
     }
 
     public void clickCategoriesDropdown() throws InterruptedException {
