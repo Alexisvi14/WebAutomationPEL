@@ -16,6 +16,7 @@ public class HomepageTests extends BaseTest {
     @Test(dataProvider="usernameData")
     public void loginButtonTest(String username) throws InterruptedException {
         var loginPage = homePageEbay.clickLoginButton();
+        Thread.sleep(3000);
         loginPage.clickUsernameBox(username);
         loginPage.clickContinueButton();
         Thread.sleep(3000);

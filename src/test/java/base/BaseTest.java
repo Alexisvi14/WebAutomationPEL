@@ -35,17 +35,9 @@ public class BaseTest {
         options.addArguments("--lang=en-US");
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
-//        if (browser.equalsIgnoreCase("Chrome")){
-//            ChromeOptions options = new ChromeOptions();
-//            options.addArguments("--remote-allow-origins=*");
-//            driver = new ChromeDriver(options);
-//        } else if (browser.equalsIgnoreCase("Firefox")) {
-//            driver = new FirefoxDriver();
-//        }
         driver.manage().window().maximize();
-//        loginPageFacebook = new LoginPage(driver);
         homePageEbay = new HomePage(driver);
-        goHome();
+//        goHome();
     }
 
     @BeforeMethod
