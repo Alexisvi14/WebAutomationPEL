@@ -37,7 +37,6 @@ public class BaseTest {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         homePageEbay = new HomePage(driver);
-//        goHome();
     }
 
     @BeforeMethod
